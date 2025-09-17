@@ -1,0 +1,28 @@
+{
+  "name": "mini_keeps_notes",
+  "module": "app.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run app.js",
+    "dev": "bun --watch app.js",
+    "css": "bun tailwindcss -i ./src/css/index.css -o ./public/css/main.css --watch"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.2",
+    "mongoose": "^8.18.1",
+    "tailwindcss": "^4.1.13"
+  }
+}
