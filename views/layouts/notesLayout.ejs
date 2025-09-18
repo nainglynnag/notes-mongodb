@@ -9,11 +9,14 @@
   <body class="bg-white">
     <!-- Header -->
     <%- include("../partials/header") %>
+    <%- include("../partials/sideBar") %>
 
-    <!-- Notes -->
+    <div class="lg:ml-64 transition-all duration-300">
+      <!-- Notes -->
     <%- include("../index") %>
     <!-- Floating Action Button -->
     <%- include("../partials/noteCreationBtn") %>
+    </div>
 
     <script src="/js/main.js"></script>
   </body>

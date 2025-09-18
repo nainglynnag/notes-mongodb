@@ -28,3 +28,34 @@ document
   .addEventListener("click", function (event) {
     event.stopPropagation();
   });
+
+// Sidebar toggle functionality
+const sidebar = document.getElementById("sidebar");
+const sidebarToggle = document.getElementById("sidebarToggle");
+
+function openSidebar() {
+  sidebar.classList.remove("-translate-x-full");
+}
+function closeSidebar() {
+  sidebar.classList.add("-translate-x-full");
+}
+function handleSidebar() {
+  if (window.innerWidth >= 1024) {
+    openSidebar();
+  } else {
+    closeSidebar();
+  }
+}
+
+if (sidebarToggle) {
+  sidebarToggle.addEventListener("click", function () {
+    if (sidebar.classList.contains("-translate-x-full")) {
+      openSidebar();
+    } else {
+      closeSidebar();
+    }
+  });
+}
+
+window.addEventListener("resize", handleSidebar);
+document.addEventListener("DOMContentLoaded", handleSidebar);
