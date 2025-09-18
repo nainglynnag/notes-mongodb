@@ -6,7 +6,7 @@
   "scripts": {
     "start": "bun run app.js",
     "dev": "bun --watch app.js",
-    "css": "bun tailwindcss -i ./src/css/index.css -o ./public/css/main.css --watch"
+    "tailwind": "bun tailwindcss -i ./src/css/index.css -o ./public/css/main.css --watch"
   },
   "devDependencies": {
     "@types/bun": "latest"

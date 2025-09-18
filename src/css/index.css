@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+@layer components {
+
+    .masonry-grid {
+        column-count: 1;
+        column-gap: 1rem;
+      }
+
+    .note-yellow {
+      background-color: #fff2cc;
+    }
+
+    .note-green {
+      background-color: #ccf5c3;
+    }
+
+    .note-blue {
+      background-color: #cbdffb;
+    }
+    .note-pink {
+      background-color: #f6cbf6;
+    }
+
+    .note-orange {
+      background-color: #ffe0b3;
+    }
+
+    .note-purple {
+      background-color: #e1ccf7;
+    }
+    .note-teal {
+      background-color: #a7ffeb;
+    }
+
+    .note-gray {
+      background-color: #e8eaed;
+    }
+
+      @media (min-width: 640px) {
+        .masonry-grid {
+          column-count: 2;
+        }
+      }
+      @media (min-width: 768px) {
+        .masonry-grid {
+          column-count: 3;
+        }
+      }
+      @media (min-width: 1024px) {
+        .masonry-grid {
+          column-count: 4;
+        }
+      }
+      @media (min-width: 1280px) {
+        .masonry-grid {
+          column-count: 5;
+        }
+      }
+      .note-card {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+      }
+}

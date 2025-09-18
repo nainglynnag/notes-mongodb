@@ -1,0 +1,100 @@
+<div class="masonry-grid">
+  <% notes.map(note => { %>
+    <div
+    class="note-card <%= note.backgroundColor %> border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer group"
+  >
+  <% if (note.title && note.title.trim()) { %>
+    <h3 class="font-medium text-gray-800 mb-2"><%= note.title %></h3>
+  <% } %>
+
+  <!-- Text Notes -->
+  <% if(note.type === "text") { %>
+    <p class="text-sm text-gray-600 mb-3 whitespace-pre-line">
+      <%= note.content %>
+    </p>
+  <% } %>
+
+  <!-- Checklist Notes -->
+   <% if(note.type === "checklist" && note.checklist) { %>
+    <ul class="text-sm text-gray-600 space-y-1">
+      <% note.checklist.map(item => { %>
+        <li class="flex items-center">
+          <input type="checkbox" class="mr-2 rounded" <%= item.checked ? "checked disabled" : "" %> />
+          <span class=" <%= item.checked ? "line-through" : "" %> "><%= item.text %></span>
+        </li>
+      <% }) %>
+    </ul>
+   <% } %>
+
+   <!-- Reminder -->
+   <% if (note.reminder) { %>
+    <p class="text-sm text-gray-600">
+      Reminder: <%= note.reminder.dateTime.toISOString().slice(0,16).replace("T"," ") %>
+    </p>
+  <% } %>
+
+  <!-- Images -->
+  <% if (note.images) { %>
+    <div class="mt-2">
+      <% note.images.forEach(img => { %>
+        <img src="<%= img.url %>" alt="<%= img.alt %>" class="w-full rounded">
+      <% }) %>
+    </div>
+  <% } %>
+
+  <!-- Tags, Date and note footer -->
+  <div>
+    <!-- Tags -->
+    <% if (note.tags && note.tags.length > 0) { %>
+      <div class="mt-4 mb-2 text-xs text-gray-700 text-nowrap flex flex-wrap gap-1">
+        <% note.tags.map(tag => { %>
+          <span class="px-2 py-1 rounded bg-gray-50/50"><%= tag %></span>
+        <% }) %>
+      </div>
+    <% } %>
+    
+    <div class="flex items-center justify-between opacity-0 group-hover:opacity-100 transition-all duration-200">
+      <!-- Date -->
+     <% if (note.createdAt) { %>
+      <span class="text-xs text-gray-500"><%= note.createdAt.toLocaleDateString("en-US",{month: "short", day: "numeric", year: "numeric"}) %></span>  
+     <% } %>
+     
+    <!-- Btns -->
+    <div class="flex space-x-1">
+      <button class="p-1 rounded-full hover:bg-gray-50/50 hover:backdrop-blur-lg">
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
+          ></path>
+        </svg>
+      </button>
+      <button class="p-1 rounded-full hover:bg-gray-50/50 hover:backdrop-blur-lg">
+        <svg
+          class="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    </div>
+  </div>
+  </div>
+  <% }) %>
+
+</div>
