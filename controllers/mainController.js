@@ -6,12 +6,21 @@ export const errorHandler = (res, error, operation, message) => {
 };
 
 export const showHomePage = async (req, res) => {
-  const notes = await Note.find().sort({ isPinned: -1, createdAt: -1 });
-  console.log(notes);
+  const reqTag = req.query.tag || "all";
+  let notes;
+  if (reqTag === "all") {
+    notes = await Note.find().sort({ isPinned: -1, createdAt: -1 });
+  } else {
+    notes = await Note.find({ tags: reqTag }).sort({
+      isPinned: -1,
+      createdAt: -1,
+    });
+  }
 
   // Collect unique tags from all notes
   const tagSet = new Set();
-  notes.forEach((note) => {
+  const allNotes = await Note.find();
+  allNotes.forEach((note) => {
     if (note.tags && Array.isArray(note.tags)) {
       note.tags.forEach((tag) => tagSet.add(tag));
     }
@@ -20,6 +29,7 @@ export const showHomePage = async (req, res) => {
 
   res.render("index", {
     layout: "../views/layouts/notesLayout",
+    active: reqTag,
     notes,
     tags,
   });

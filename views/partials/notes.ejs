@@ -2,6 +2,15 @@
   <% notes.map(note => { %>
     <div
     class="note-card <%= note.backgroundColor %> border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer group"
+    data-note-id="<%= note._id %>"
+    data-note-backgroundColor = "<%= note.backgroundColor %>"
+    data-note-title="<%- note.title.replace(/"/g, '&quot;') %>"
+    data-note-content="<%- note.content.replace(/"/g, '&quot;') %>"
+    data-note-type="<%= note.type %>"
+    data-note-checklist='<%- encodeURIComponent(JSON.stringify(note.checklist || [])) %>'
+    data-note-images='<%- encodeURIComponent(JSON.stringify(note.images || [])) %>'
+    data-note-tags='<%- encodeURIComponent(JSON.stringify(note.tags || [])) %>'
+    onclick="openNoteModal(this)"
   >
   <% if (note.title && note.title.trim()) { %>
     <h3 class="font-medium text-gray-800 mb-2"><%= note.title %></h3>

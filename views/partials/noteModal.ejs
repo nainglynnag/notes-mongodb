@@ -1,0 +1,136 @@
+<div
+  id="noteModal"
+  class="fixed inset-0 z-50 flex items-center justify-center mx-2 bg-gray-400/40 backdrop-blur-xs hidden"
+>
+  <div id="noteContainer" class="rounded-lg shadow-lg w-full max-w-lg p-4 relative">
+    <!-- <button onclick="closeNoteModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl">&times;</button> -->
+    <form id="noteModalForm">
+      <input type="hidden" id="modalNoteId" />
+      <div class="mb-4">
+        <input
+          id="modalNoteTitle"
+          name="title"
+          class="w-full p-2 text-lg font-medium border-b border-gray-200 focus:outline-none"
+          maxlength="200"
+        />
+      </div>
+
+      <div id="modalTextContent" class="w-full h-96 mb-4">
+        <textarea
+          id="modalNoteContent"
+          name="content"
+          class="w-full h-96 mx-auto rounded p-2 border-0 outline-0 focus:outline-none resize-none"
+          maxlength="2000"
+        ></textarea>
+      </div>
+      <div id="modalChecklistContent" class="mb-4 hidden">
+        <ul id="modalChecklistItems" class="space-y-2"></ul>
+      </div>
+      <div id="modalImagesContent" class="mb-4 hidden">
+        <div id="modalImagesList" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div id="modalTagsContent" class="mb-4">
+        <div id="modalTagsList" class="flex flex-wrap gap-1"></div>
+      </div>
+
+      <div
+        class="flex items-center justify-between p-2 border-t border-gray-200"
+      >
+        <div class="flex space-x-1 items-center">
+          <button
+            type="button"
+            class="p-2 border-2 rounded-full hover:bg-gray-100"
+            title="Background color"
+          >
+          <span class="size-1 bg-white rounded-full"></span>
+        </button>
+
+          <button
+            type="button"
+            class="p-2 hover:bg-gray-100 rounded-full"
+            title="Add image"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+          </button>
+
+          
+          <button type="button" class="p-2 hover:bg-gray-100 rounded-full" title="checklist">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+            
+           </button>
+
+           <button type="button" class="p-2 hover:bg-gray-100 rounded-full" title="event">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            
+           </button>
+
+          <button
+            type="button"
+            class="p-2 hover:bg-gray-100 rounded-full"
+            title="Archive"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+              ></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="p-2 hover:bg-gray-100 rounded-full"
+            title="More"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <button
+          onclick="closeNoteModal()"
+          class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded"
+        >
+          Close
+        </button>
+      </div>
+
+      <!-- <div class="flex justify-end space-x-2">
+          <button type="button" onclick="closeNoteModal()" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">Cancel</button>
+          <button type="submit" class="px-4 py-2 rounded bg-teal-500 text-white hover:bg-teal-600">Save</button>
+        </div> -->
+    </form>
+  </div>
+</div>
