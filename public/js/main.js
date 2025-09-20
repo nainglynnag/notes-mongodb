@@ -227,3 +227,62 @@ document.addEventListener("click", function (e) {
   // Close menus if clicking outside
   closeAllMenus();
 });
+
+// Modal Color Picker and More Options logic
+const modalColorPickerBtn = document.getElementById("modalColorPickerBtn");
+const modalColorBar = document.getElementById("modalColorBar");
+const modalSelectedColor = document.getElementById("modalSelectedColor");
+const modalMoreOptionsBtn = document.getElementById("modalMoreOptionsBtn");
+const modalMoreOptionsMenu = document.getElementById("modalMoreOptionsMenu");
+
+function closeAllModalMenus() {
+  if (modalColorBar) modalColorBar.classList.add("hidden");
+  if (modalMoreOptionsMenu) modalMoreOptionsMenu.classList.add("hidden");
+}
+
+if (modalColorPickerBtn && modalColorBar) {
+  modalColorPickerBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isOpen = !modalColorBar.classList.contains("hidden");
+    closeAllModalMenus();
+    if (!isOpen) modalColorBar.classList.remove("hidden");
+  });
+  modalColorBar.querySelectorAll("[data-color]").forEach((el) => {
+    el.addEventListener("click", function (e) {
+      e.stopPropagation();
+      // Remove previous color class from noteContainer
+      const noteContainer = document.getElementById("noteContainer");
+      noteContainer.classList.remove(
+        "note-white",
+        "note-yellow",
+        "note-green",
+        "note-blue",
+        "note-pink",
+        "note-orange",
+        "note-purple",
+        "note-teal",
+        "note-gray"
+      );
+      // Add new color class
+      const color = el.getAttribute("data-color");
+      noteContainer.classList.add(color);
+      if (modalSelectedColor)
+        modalSelectedColor.className = `size-1 ${color} rounded-full`;
+      modalColorBar.classList.add("hidden");
+    });
+  });
+}
+
+if (modalMoreOptionsBtn && modalMoreOptionsMenu) {
+  modalMoreOptionsBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isOpen = !modalMoreOptionsMenu.classList.contains("hidden");
+    closeAllModalMenus();
+    if (!isOpen) modalMoreOptionsMenu.classList.remove("hidden");
+  });
+}
+
+document.addEventListener("click", function (e) {
+  // Close modal menus if clicking outside
+  closeAllModalMenus();
+});

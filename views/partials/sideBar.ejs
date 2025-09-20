@@ -23,7 +23,26 @@
           >
         </li>
 
-        <% if (tags && tags.length > 0) { %> <% tags.forEach(tag => { %>
+        <li
+          class="w-full flex justify-start items-center pl-6 md:pl-8 <%= active === "archived" ? "bg-stone-300 border-s-4 border-teal-400 rounded-e-4xl" : "" %> hover:bg-gray-100 transition-all duration-200"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            class="bi bi-tag-fill size-4"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+            />
+          </svg>
+          <a href="/?tag=archived" class="w-full block ml-4 px-3 py-2 rounded text-gray-700"
+            >Archived</a
+          >
+        </li>
+        
+        <% if (tags && tags.length > 0) { %>
+        <% tags.slice().sort((a, b) => a.localeCompare(b)).forEach(tag => { %>
         <li
           class="w-full flex justify-start items-center pl-6 md:pl-8 <%= active === tag ? 'bg-stone-300 border-s-4 border-teal-400 rounded-e-4xl' : '' %> hover:bg-gray-100 hover:rounded-e-2xl transition-all duration-200"
         >
@@ -43,23 +62,6 @@
         </li>
         <% })} %>
 
-        <li
-          class="w-full flex justify-start items-center pl-6 md:pl-8 <%= active === "archived" ? "bg-stone-300 border-s-4 border-teal-400 rounded-e-4xl" : "" %> hover:bg-gray-100 transition-all duration-200"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            class="bi bi-tag-fill size-4"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
-            />
-          </svg>
-          <a href="/?tag=archived" class="w-full block ml-4 px-3 py-2 rounded text-gray-700"
-            >Archived</a
-          >
-        </li>
       </ul>
     </div>
   </aside>
