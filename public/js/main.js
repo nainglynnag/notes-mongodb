@@ -89,7 +89,7 @@ window.openNoteModal = function (el) {
     "note-teal",
     "note-gray"
   );
-  
+
   document.getElementById("noteContainer").classList.add(noteColor);
   document.getElementById("modalNoteId").value = noteId;
   document.getElementById("modalNoteTitle").value = noteTitle;
@@ -166,3 +166,64 @@ document
     closeNoteModal();
     // Optionally update the note in the UI
   });
+
+// Color picker and More options logic
+const expandedCreatorDiv = document.getElementById("expandedCreator");
+const colorPickerBtn = document.getElementById("colorPickerBtn");
+const colorBar = document.getElementById("colorBar");
+const selectedColor = document.getElementById("selectedColor");
+const moreOptionsBtn = document.getElementById("moreOptionsBtn");
+const moreOptionsMenu = document.getElementById("moreOptionsMenu");
+
+let currentColor = "note-white";
+
+function closeAllMenus() {
+  colorBar.classList.add("hidden");
+  moreOptionsMenu.classList.add("hidden");
+}
+
+if (colorPickerBtn && colorBar) {
+  colorPickerBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isOpen = !colorBar.classList.contains("hidden");
+    closeAllMenus();
+    if (!isOpen) colorBar.classList.remove("hidden");
+  });
+  colorBar.querySelectorAll("[data-color]").forEach((el) => {
+    el.addEventListener("click", function (e) {
+      e.stopPropagation();
+      // Remove previous color class
+      expandedCreatorDiv.classList.remove(
+        "note-white",
+        "note-yellow",
+        "note-green",
+        "note-blue",
+        "note-pink",
+        "note-orange",
+        "note-purple",
+        "note-teal",
+        "note-gray"
+      );
+      // Add new color class
+      const color = el.getAttribute("data-color");
+      expandedCreatorDiv.classList.add(color);
+      selectedColor.className = `size-1 ${color} rounded-full`;
+      currentColor = color;
+      colorBar.classList.add("hidden");
+    });
+  });
+}
+
+if (moreOptionsBtn && moreOptionsMenu) {
+  moreOptionsBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    const isOpen = !moreOptionsMenu.classList.contains("hidden");
+    closeAllMenus();
+    if (!isOpen) moreOptionsMenu.classList.remove("hidden");
+  });
+}
+
+document.addEventListener("click", function (e) {
+  // Close menus if clicking outside
+  closeAllMenus();
+});
