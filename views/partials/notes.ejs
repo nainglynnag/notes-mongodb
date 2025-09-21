@@ -1,4 +1,5 @@
-<div class="masonry-grid">
+<% if (notes && notes.length > 0) { %>
+  <div class="masonry-grid">
   <% notes.map(note => { %>
     <div
     class="note-card <%= note.backgroundColor %> border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow duration-200 cursor-pointer group"
@@ -107,3 +108,7 @@
   <% }) %>
 
 </div>
+<% }else{ %>
+  
+<%- include("../partials/emptyNotes") %>
+<% } %>

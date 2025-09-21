@@ -9,17 +9,22 @@ export const showHomePage = async (req, res) => {
   const reqTag = req.query.tag || "all";
   let notes;
   if (reqTag === "all") {
-    notes = await Note.find().sort({ isPinned: -1, createdAt: -1 });
-  } else {
-    notes = await Note.find({ tags: reqTag }).sort({
+    notes = await Note.find({ userId: req.session.user.id }).sort({
       isPinned: -1,
       createdAt: -1,
     });
+  } else {
+    notes = await Note.find({ userId: req.session.user.id, tags: reqTag }).sort(
+      {
+        isPinned: -1,
+        createdAt: -1,
+      }
+    );
   }
 
   // Collect unique tags from all notes
   const tagSet = new Set();
-  const allNotes = await Note.find();
+  const allNotes = await Note.find({ userId: req.session.user.id });
   allNotes.forEach((note) => {
     if (note.tags && Array.isArray(note.tags)) {
       note.tags.forEach((tag) => tagSet.add(tag));

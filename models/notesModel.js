@@ -176,7 +176,7 @@ const noteSchema = new Schema(
     },
 
     // For user who owns the note
-    user: {
+    userId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
