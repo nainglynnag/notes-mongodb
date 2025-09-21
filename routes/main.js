@@ -1,5 +1,5 @@
 import express from "express";
-import { showHomePage } from "../controllers/mainController";
+import { createNote, showHomePage } from "../controllers/mainController";
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ const isLoggedIn = (req, res, next) => {
 };
 
 router.get("/", isLoggedIn, showHomePage);
+router.post("/addnote", isLoggedIn, createNote);
 
 export default router;

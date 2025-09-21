@@ -42,17 +42,45 @@
         </div>
       </div>
 
-      <div id="expandedCreator" class="hidden">
+      <form id="expandedCreator" class="hidden" action="/addnote" method="post">
+        <!-- hidden inputs populated by JS -->
+        <input type="hidden" id="noteType" name="type" value="text" />
+        <input
+          type="hidden"
+          id="noteBackgroundColor"
+          name="backgroundColor"
+          value="note-white"
+        />
+        <input type="hidden" id="noteTags" name="tags" value="[]" />
+        <input type="hidden" id="noteChecklist" name="checklist" value="[]" />
         <input
           type="text"
+          id="title"
+          name="title"
           placeholder="Title"
           class="w-full p-4 text-lg font-medium border-b border-gray-200 focus:outline-none"
         />
         <textarea
+          id="content"
+          name="content"
           placeholder="Take a note..."
           rows="3"
           class="w-full p-4 resize-none focus:outline-none"
         ></textarea>
+
+        <!-- Tags container (hidden by default) -->
+        <div
+          id="tagsContainer"
+          class="hidden mx-1 mt-4 mb-2 text-xs text-gray-700 text-nowrap"
+        >
+          <div id="tagsList" class="flex flex-wrap gap-2 mb-2"></div>
+          <input
+            id="newTagInput"
+            type="text"
+            placeholder="tag name"
+            class="bg-gray-50/50 px-2 py-1 rounded-full border border-gray-200 focus:outline-none"
+          />
+        </div>
 
         <div
           class="flex items-center justify-between p-2 border-t border-gray-200"
@@ -60,6 +88,7 @@
           <div class="flex space-x-1 items-center">
             <button
               id="colorPickerBtn"
+              name="backgroundColor"
               class="p-2 rounded-full hover:bg-gray-100 relative group"
               title="Background color"
               type="button"
@@ -144,6 +173,8 @@
             </button> -->
 
             <button
+              type="button"
+              id="checklistBtn"
               class="p-2 hover:bg-gray-100 rounded-full"
               title="checklist"
             >
@@ -180,7 +211,12 @@
               </svg>
             </button> -->
 
-            <button class="p-2 hover:bg-gray-100 rounded-full" title="Archive">
+            <button
+              type="button"
+              id="archiveBtn"
+              class="p-2 hover:bg-gray-100 rounded-full"
+              title="Archive"
+            >
               <svg
                 class="w-5 h-5"
                 fill="none"
@@ -220,6 +256,7 @@
                 class="w-30 bg-white text-start flex flex-col absolute -top-15 left-5 hidden rounded-lg shadow-lg z-50"
               >
                 <a
+                  id="addLabelBtn"
                   class="text-sm px-2 py-1 border-b border-b-gray-200 hover:bg-gray-200 cursor-pointer"
                   >add label</a
                 >
@@ -230,14 +267,24 @@
               </div>
             </button>
           </div>
-          <button
-            id="closeCreator"
-            class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded"
-          >
-            Close
-          </button>
+          <div class="flex items-center space-x-2">
+            <button
+              type="button"
+              id="closeCreator"
+              class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded"
+            >
+              Close
+            </button>
+            <button
+              type="submit"
+              id="saveNoteBtn"
+              class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded"
+            >
+              Save
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>

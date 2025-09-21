@@ -39,3 +39,50 @@ export const showHomePage = async (req, res) => {
     tags,
   });
 };
+
+export const createNote = async (req, res) => {
+  try {
+    console.log(req.session.user.id);
+    console.log(req.body);
+    const { title, content, type, backgroundColor, tags, checklist } = req.body;
+
+    // Basic validation
+    const noteData = {
+      title: title || "",
+      content: content || "",
+      type: type || "text",
+      backgroundColor: backgroundColor || "note-white",
+      userId: req.session.user.id,
+    };
+
+    // Parse tags/checklist if provided as JSON strings
+    try {
+      if (tags) noteData.tags = JSON.parse(tags);
+    } catch (e) {
+      noteData.tags = Array.isArray(tags) ? tags : [];
+    }
+    // try {
+    //   if (checklist) {
+    //     noteData.checklist = JSON.parse(checklist);
+    //   } else if (noteData.type === 'checklist' && noteData.content) {
+
+    //     const lines = noteData.content.split('\n').map(l => l.trim()).filter(l => l.length);
+    //     const parsed = lines.map((line, idx) => {
+    //       const text = line.replace(/^(-\s*)?/, '');
+    //       return { id: Date.now().toString(36) + '_' + idx, text, checked: false, order: idx };
+    //     });
+    //     noteData.checklist = parsed;
+
+    //     noteData.content = '';
+    //   }
+    // } catch (e) {
+    //   noteData.checklist = Array.isArray(checklist) ? checklist : [];
+    // }
+
+    const newNote = new Note(noteData);
+    await newNote.save();
+    return res.redirect("/");
+  } catch (error) {
+    errorHandler(res, error, "createNote", "Error creating note");
+  }
+};
