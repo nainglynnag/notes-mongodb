@@ -78,7 +78,7 @@
             id="newTagInput"
             type="text"
             placeholder="tag name"
-            class="bg-gray-50/50 px-2 py-1 rounded-full border border-gray-200 focus:outline-none"
+            class="bg-gray-50/50 px-2 py-1 rounded border border-gray-200 focus:outline-none"
           />
         </div>
 
@@ -261,12 +261,14 @@
                   >add label</a
                 >
                 <a
+                  id="discardBtn"
                   class="text-red-500 text-sm px-2 py-1 border-b border-b-gray-200 hover:bg-gray-200 cursor-pointer"
-                  >delete note</a
+                  >Discard</a
                 >
               </div>
             </button>
           </div>
+
           <div class="flex items-center space-x-2">
             <button
               type="button"
@@ -278,7 +280,7 @@
             <button
               type="submit"
               id="saveNoteBtn"
-              class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded"
+              class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded transition-all duration-200"
             >
               Save
             </button>

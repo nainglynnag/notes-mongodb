@@ -1,5 +1,10 @@
 import express from "express";
-import { createNote, showHomePage } from "../controllers/mainController";
+import {
+  createNote,
+  deleteNote,
+  showHomePage,
+  updateNote,
+} from "../controllers/mainController";
 
 const router = express.Router();
 
@@ -13,5 +18,7 @@ const isLoggedIn = (req, res, next) => {
 
 router.get("/", isLoggedIn, showHomePage);
 router.post("/addnote", isLoggedIn, createNote);
+router.post("/updatenote/:id", isLoggedIn, updateNote);
+router.post("/delete/:id", isLoggedIn, deleteNote);
 
 export default router;

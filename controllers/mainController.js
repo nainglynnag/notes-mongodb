@@ -86,3 +86,38 @@ export const createNote = async (req, res) => {
     errorHandler(res, error, "createNote", "Error creating note");
   }
 };
+
+export const updateNote = async (req, res) => {
+  try {
+    // console.log(req.body);
+    const { id, title, content, type, backgroundColor, tags, checklist } =
+      req.body;
+
+    const noteData = {
+      title: title,
+      content: content,
+      type: type || "text",
+      backgroundColor: backgroundColor || "note-white",
+      tags: tags ? JSON.parse(tags) : [],
+      checklist: checklist ? JSON.parse(checklist) : [],
+    };
+
+    await Note.findByIdAndUpdate({ _id: id }, noteData).where({
+      userId: req.session.user.id,
+    });
+
+    return res.redirect("/");
+  } catch (error) {
+    errorHandler(res, error, "updateNote", "Error updating note");
+  }
+};
+
+export const deleteNote = async (req, res) => {
+  try {
+    // console.log("param", req.params.id);
+    await Note.findByIdAndDelete(req.params.id);
+    return res.redirect("/");
+  } catch (error) {
+    errorHandler(res, error, "deleteNote", "Error deleting note");
+  }
+};

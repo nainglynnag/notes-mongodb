@@ -7,8 +7,18 @@
     class="rounded-lg shadow-lg w-full max-w-lg p-4 relative"
   >
     <!-- <button onclick="closeNoteModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl">&times;</button> -->
-    <form id="noteModalForm">
-      <input type="hidden" id="modalNoteId" />
+    <form id="noteModalForm" method="post">
+      <input type="hidden" id="modalNoteId" name="id" />
+      <input type="hidden" id="noteType" name="type" value="text" />
+      <input
+        type="hidden"
+        id="noteBackgroundColor"
+        name="backgroundColor"
+        value="note-white"
+      />
+      <input type="hidden" id="noteTags" name="tags" value="[]" />
+      <input type="hidden" id="noteChecklist" name="checklist" value="[]" />
+
       <div class="mb-4">
         <input
           id="modalNoteTitle"
@@ -32,8 +42,28 @@
       <div id="modalImagesContent" class="mb-4 hidden">
         <div id="modalImagesList" class="flex flex-wrap gap-2"></div>
       </div>
+
+      <!-- <div
+        id="tagsContainer"
+        class="hidden mx-1 mt-4 mb-2 text-xs text-gray-700 text-nowrap"
+      >
+        <div id="tagsList" class="flex flex-wrap gap-2 mb-2"></div>
+        <input
+          id="newTagInput"
+          type="text"
+          placeholder="tag name"
+          class="bg-gray-50/50 px-2 py-1 rounded-full border border-gray-200 focus:outline-none"
+        />
+      </div> -->
+
       <div id="modalTagsContent" class="mb-4">
         <div id="modalTagsList" class="flex flex-wrap gap-1"></div>
+        <input
+          id="newTagInput"
+          type="text"
+          placeholder="tag name"
+          class="bg-gray-50/50 text-xs mt-1 px-2 py-1 rounded border border-gray-200 focus:outline-none hidden"
+        />
       </div>
 
       <div
@@ -212,28 +242,37 @@
               class="w-30 bg-white text-start flex flex-col absolute -top-15 left-5 hidden rounded-lg shadow-lg z-50"
             >
               <a
+                id="addLabelBtn"
                 class="text-sm px-2 py-1 border-b border-b-gray-200 hover:bg-gray-200 cursor-pointer"
                 >add label</a
               >
               <a
+                id="discardBtn"
                 class="text-red-500 text-sm px-2 py-1 border-b border-b-gray-200 hover:bg-gray-200 cursor-pointer"
-                >delete note</a
+                >Discard</a
               >
             </div>
           </button>
         </div>
-        <button
-          onclick="closeNoteModal()"
-          class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded"
-        >
-          Close
-        </button>
-      </div>
 
-      <!-- <div class="flex justify-end space-x-2">
-          <button type="button" onclick="closeNoteModal()" class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">Cancel</button>
-          <button type="submit" class="px-4 py-2 rounded bg-teal-500 text-white hover:bg-teal-600">Save</button>
-        </div> -->
+        <div class="flex items-center space-x-2">
+          <button
+            type="button"
+            id="closeCreator"
+            onclick="closeNoteModal()"
+            class="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            id="saveNoteBtn"
+            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded cursor-pointer active:scale-90 transition-all duration-200"
+          >
+            Save
+          </button>
+        </div>
+      </div>
     </form>
   </div>
 </div>
