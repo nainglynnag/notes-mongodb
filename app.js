@@ -43,6 +43,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(expressLayouts);
 app.set("layout", "./layouts/notesLayout");
 
+// To pass /favicon.ico error on vercel deployment
+app.get("/favicon.ico", (req, res) => res.status(204).end());
 app.use("/", auth);
 app.use("/", main);
 
