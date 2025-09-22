@@ -42,8 +42,8 @@ export const showHomePage = async (req, res) => {
 
 export const createNote = async (req, res) => {
   try {
-    console.log(req.session.user.id);
-    console.log(req.body);
+    // console.log(req.session.user.id);
+    // console.log(req.body);
     const { title, content, type, backgroundColor, tags, checklist } = req.body;
 
     // Basic validation
