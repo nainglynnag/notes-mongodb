@@ -8,6 +8,7 @@ import connectDB from "./config/db.js";
 // Routes import
 import main from "./routes/main.js";
 import auth from "./routes/auth.js";
+import user from "./routes/user.js";
 
 import expressEjsLayouts from "express-ejs-layouts";
 
@@ -48,6 +49,7 @@ app.get(["/favicon.ico", "/favicon.png"], (req, res) => res.status(204).end());
 
 app.use("/", auth);
 app.use("/", main);
+app.use("/account", user);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -1,0 +1,440 @@
+<!-- Header -->
+<header class="bg-white shadow-sm border-b border-gray-200">
+  <div class="max-w-4xl mx-auto px-4 py-4">
+  <div class="flex items-center justify-between">
+  <div class="flex items-center space-x-4">
+        <button
+          onclick="history.back()"
+          class="p-2 hover:bg-gray-100 rounded-full cursor-pointer active:scale-90 transition-all duration-200"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </svg>
+        </button>
+        <h1 class="text-2xl font-semibold text-gray-900">Profile Settings</h1>
+      </div>
+      <button type="submit" form="updateForm"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 cursor-pointer active:scale-90 transition-all duration-200"
+      >
+        Save Changes
+      </button>
+    </div>
+  </div>
+</header>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+  <div id="flashError" class="mt-4 text-sm text-red-600 text-center">
+    <%= error %>
+  </div>
+  <% } %>
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <div class="space-y-6">
+    <!-- Profile Overview Card -->
+    <div
+      class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+    >
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-900">Profile Overview</h2>
+        <p class="text-sm text-gray-600">Your basic account information</p>
+      </div>
+
+      <div class="p-6">
+  <form id="updateForm" method="POST" action="/account/update" class="flex items-start space-x-6">
+          <!-- Avatar Section -->
+          <div class="flex-shrink-0">
+            <% if (userData.avatar && userData.avatar.length > 0) { %>
+            <img
+              class="w-24 h-24 rounded-full object-cover ring-4 ring-gray-100"
+              src="<%= userData.avatar %>"
+              alt="Profile Avatar"
+            />
+            <% } else{ %>
+            <div
+              class="size-20 bg-gradient-to-r from-gray-600 to-stone-500 rounded-full object-cover ring-4 ring-gray-100 text-2xl font-bold text-white text-center flex items-center justify-center"
+            >
+              <%= userData.name.split(" ").map((n) =>
+              n[0]).join("").toUpperCase() %>
+            </div>
+            <% } %>
+
+            <button
+            type="button"
+              class="mt-2 text-sm text-blue-600 hover:text-blue-800 font-medium cursor-pointer"
+            >
+              Change Photo
+            </button>
+          </div>
+
+          <!-- Basic Info -->
+          <div class="flex-1 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1"
+                  >Full Name</label
+                >
+                <input id="name" name="name" class="p-3 bg-gray-50 text-gray-900 rounded-lg border border-gray-200" value="<%= userData.name %>" required>
+                  
+                </input>
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
+                  >Email Address</label
+                >
+                <input name="email" id="email" class="p-3 bg-gray-50 text-gray-900 rounded-lg border border-gray-200" value="<%= userData.email %>" required>
+                  
+                </input>
+              </div>
+            </div>
+
+            
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Preferences Card -->
+    <div
+      class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+    >
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-900">App Preferences</h2>
+        <p class="text-sm text-gray-600">Customize your notes experience</p>
+      </div>
+
+      <div class="p-6 space-y-6">
+        <!-- Default Background Color -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Default Note Color</label
+          >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 rounded-full <%= userData.preferences.defaultBackgroundColor %> border-2 border-gray-300 ring-2 ring-blue-500"
+            ></div>
+            <span class="text-gray-900">Yellow</span>
+            <button
+              class="text-blue-600 hover:text-blue-800 text-sm font-medium ml-auto"
+            >
+              Change
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">
+            New notes will use this color by default
+          </p>
+        </div>
+
+        <!-- Grid View -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Grid Layout</label
+          >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="flex space-x-1">
+                <div class="w-3 h-4 bg-gray-300 rounded-sm"></div>
+                <div class="w-3 h-3 bg-gray-300 rounded-sm"></div>
+                <div class="w-3 h-5 bg-gray-300 rounded-sm"></div>
+              </div>
+              <span class="text-gray-900">Masonry</span>
+            </div>
+            <button
+              class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              Change
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">
+            How your notes are arranged on the screen
+          </p>
+        </div>
+
+        <!-- Dark Mode -->
+        <div>
+          <div class="flex items-center justify-between">
+            <div>
+              <label class="block text-sm font-medium text-gray-700"
+                >Dark Mode</label
+              >
+              <p class="text-xs text-gray-500 mt-1">Switch to dark theme</p>
+            </div>
+            <div class="flex items-center">
+              <button
+                class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                <span
+                  class="inline-block h-4 w-4 transform rounded-full bg-white shadow-lg ring-0 transition-transform translate-x-1"
+                ></span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Font Size -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2"
+            >Font Size</label
+          >
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <span class="text-base text-gray-900">Aa</span>
+              <span class="text-gray-900">Medium</span>
+            </div>
+            <button
+              class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              Change
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Text size in your notes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Information Card -->
+    <!-- <div
+          class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+        >
+          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-900">
+              Account Information
+            </h2>
+            <p class="text-sm text-gray-600">Account activity and security</p>
+          </div>
+
+          <div class="p-6 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-5 h-5 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">Last Login</p>
+                    <p class="text-xs text-gray-500">Oct 17, 2024 at 8:00 AM</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-5 h-5 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">
+                      Member Since
+                    </p>
+                    <p class="text-xs text-gray-500">Sep 1, 2024</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-4">
+                <div class="flex items-center space-x-3">
+                  <div
+                    class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-5 h-5 text-orange-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-900">
+                      Last Updated
+                    </p>
+                    <p class="text-xs text-gray-500">Oct 15, 2024</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+    <!-- Security Card -->
+    <div
+      class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+    >
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-900">Security</h2>
+        <p class="text-sm text-gray-600">Manage your account security</p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div class="flex items-center justify-between py-3">
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center"
+            >
+              <svg
+                class="w-5 h-5 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-900">Password</p>
+              <!-- <p class="text-xs text-gray-500">Last changed 2 months ago</p> -->
+            </div>
+          </div>
+          <button
+          onclick="updatePasswordModal()"
+          id="updatePasswordBtn"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm cursor-pointer active:scale-90 transition-all duration-200"
+          >
+            Change Password
+          </button>
+
+        </div>
+        
+        <%- include("./updatePassword") %>
+
+        <div class="border-t border-gray-200 pt-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-900">
+                Two-Factor Authentication
+              </p>
+              <p class="text-xs text-gray-500">
+                Add an extra layer of security to your account
+              </p>
+            </div>
+            <button
+              class="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              Enable
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data & Privacy Card -->
+    <div
+      class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden"
+    >
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-lg font-semibold text-gray-900">Data & Privacy</h2>
+        <p class="text-sm text-gray-600">
+          Manage your data and privacy settings
+        </p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <button
+          class="w-full text-left p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-gray-900">
+                Download Your Data
+              </p>
+              <p class="text-xs text-gray-500 mt-1">
+                Get a copy of all your notes and account data
+              </p>
+            </div>
+            <svg
+              class="w-5 h-5 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+        </button>
+
+        <form action="/account/delete-account" method="post" id="deleteAccountForm" class="hidden"></form>
+        <button
+        type="submit"
+        form="deleteAccountForm"
+          class="w-full text-left p-4 border border-red-200 rounded-lg hover:bg-red-50 text-red-600 cursor-pointer active:scale-95 transition-all duration-200"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">Delete Account</p>
+              <p class="text-xs text-red-400 mt-1">
+                Permanently delete your account and all data
+              </p>
+            </div>
+            <svg
+              class="w-5 h-5 text-red-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

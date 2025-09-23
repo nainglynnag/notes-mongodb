@@ -23,6 +23,7 @@ More features (checklist, images, reminders, archive, account settings, etc.) ar
 - Sign up
 - Sign in
 - Sign out
+- Create, read, update, and delete **user data**
 
 ---
 
