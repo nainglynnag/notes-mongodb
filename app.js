@@ -51,6 +51,10 @@ app.use("/", auth);
 app.use("/", main);
 app.use("/account", user);
 
+app.get("/{*splat}", (req, res) => {
+  res.render("notFound", { layout: "../views/layouts/authLayout" });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
