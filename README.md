@@ -32,7 +32,7 @@ More features (checklist, images, reminders, archive, account settings, etc.) ar
 - ☑️ Checklist notes
 - 🖼️ Image attachments
 - ⏰ Reminders & notifications
-- 📦 Archive & restore notes
+- 📦 Restore notes
 - ⚙️ Account settings
 - 🎨 Better UI improvements
 
