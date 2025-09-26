@@ -9,17 +9,29 @@ export const showHomePage = async (req, res) => {
   const reqTag = req.query.tag || "all";
   let notes;
   if (reqTag === "all") {
-    notes = await Note.find({ userId: req.session.user.id }).sort({
+    notes = await Note.find({
+      userId: req.session.user.id,
+      isArchived: false,
+    }).sort({
       isPinned: -1,
       createdAt: -1,
     });
+  } else if (reqTag === "archived") {
+    notes = await Note.find({
+      userId: req.session.user.id,
+      isArchived: true,
+    }).sort({
+      createdAt: -1,
+    });
   } else {
-    notes = await Note.find({ userId: req.session.user.id, tags: reqTag }).sort(
-      {
-        isPinned: -1,
-        createdAt: -1,
-      }
-    );
+    notes = await Note.find({
+      userId: req.session.user.id,
+      tags: reqTag,
+      isArchived: false,
+    }).sort({
+      isPinned: -1,
+      createdAt: -1,
+    });
   }
 
   // Collect unique tags from all notes
@@ -109,6 +121,20 @@ export const updateNote = async (req, res) => {
     return res.redirect("/");
   } catch (error) {
     errorHandler(res, error, "updateNote", "Error updating note");
+  }
+};
+
+export const archiveNote = async (req, res) => {
+  try {
+    console.log(req.params.id);
+
+    await Note.findByIdAndUpdate(req.params.id, {
+      isArchived: true,
+    });
+
+    res.redirect("/");
+  } catch (error) {
+    errorHandler(res, error, "archiveNote", "Error archiving note");
   }
 };
 

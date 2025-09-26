@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  archiveNote,
   createNote,
   deleteNote,
   showHomePage,
@@ -19,6 +20,7 @@ const isLoggedIn = (req, res, next) => {
 router.get("/", isLoggedIn, showHomePage);
 router.post("/addnote", isLoggedIn, createNote);
 router.post("/updatenote/:id", isLoggedIn, updateNote);
+router.put("/archive/:id", isLoggedIn, archiveNote);
 router.post("/delete/:id", isLoggedIn, deleteNote);
 
 export default router;

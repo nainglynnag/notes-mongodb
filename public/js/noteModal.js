@@ -153,9 +153,6 @@
       }
     });
 
-  // The save button is a submit button inside the form; the form's action
-  // is set when opening the modal. No extra submit handler is required here.
-
   // Modal Color Picker and More Options logic
   const modalColorPickerBtn = document.getElementById("modalColorPickerBtn");
   const modalColorBar = document.getElementById("modalColorBar");
@@ -251,6 +248,24 @@
         newTagInput.classList.add("hidden");
       }
     });
+  }
+
+  // Archive Btn
+  const archiveBtn = document.getElementById("archiveBtn");
+  if (archiveBtn) {
+    archiveBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+
+      const noteId = modalNoteId.value;
+      // console.log("click", noteId, archiveBtn);
+      archiveNote(noteId);
+    });
+  }
+
+  function archiveNote(id) {
+    fetch(`/archive/${id}`, { method: "put" }).then(() =>
+      window.location.reload()
+    );
   }
 
   // Global click handler: close modal menus if clicking outside
